@@ -3,7 +3,7 @@ import React from 'react';
 import { FieldGroup } from 'react-ocean-forms';
 import { TableRow, TableCell, withStyles } from '@material-ui/core';
 
-import { TranslationField } from './TranslationField';
+import { TranslationField } from '../TranslationField';
 import { TranslationLineStyledProps, translationLineStyles } from './TranslationLine.styles';
 
 interface ITranslationLineProps extends TranslationLineStyledProps {

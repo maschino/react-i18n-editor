@@ -1,6 +1,7 @@
 import { app, BrowserWindow, ipcMain, Event, dialog } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
+import * as isDev from 'electron-is-dev';
 
 import { ITranslations } from './shared/ITranslations';
 import { EVENT_NAMES } from './shared/eventNames';
@@ -30,7 +31,7 @@ app.on('ready', () => {
     }
   });
 
-  if (process.env.NODE_ENV !== 'production') {
+  if (isDev) {
     mainWindow.loadURL('http://localhost:3000');
   } else {
     mainWindow.loadURL(

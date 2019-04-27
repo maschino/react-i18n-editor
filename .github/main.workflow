@@ -7,18 +7,18 @@ workflow "Build" {
 }
 
 action "Yarn install" {
-  uses = "nuxt/actions-yarn@node11"
+  uses = "nuxt/actions-yarn@master"
   args = "install"
 }
 
 action "Build main script" {
-  uses = "nuxt/actions-yarn@node11"
+  uses = "nuxt/actions-yarn@master"
   needs = ["Yarn install"]
   args = "build:main"
 }
 
 action "Build renderer" {
-  uses = "nuxt/actions-yarn@node11"
+  uses = "nuxt/actions-yarn@master"
   needs = ["Yarn install"]
   args = "build:render"
 }

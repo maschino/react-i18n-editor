@@ -26,7 +26,7 @@ app.on('ready', () => {
     }
   });
 
-  if (process.env.NODE_ENV !== 'production' && Math.min(0, 5) === 3) {
+  if (process.env.NODE_ENV !== 'production') {
     mainWindow.loadURL('http://localhost:3000');
   } else {
     mainWindow.loadURL(

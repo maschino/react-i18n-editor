@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
 
 import { Table, TableHead, TableCell, TableRow, TableBody, withStyles, Fab } from '@material-ui/core';
 import { FabProps } from '@material-ui/core/Fab';
@@ -8,6 +8,7 @@ import { Form, FormButton, IFormButtonProps } from 'react-ocean-forms';
 import { backendService } from '../../services/backendService';
 import { ITranslations } from '../../../shared/ITranslations';
 import { TranslationLine } from './components/TranslationLine';
+import { BusyContext } from '../../components/BusyContext';
 import { translationEditorStyles, TranslationEditorStyledProps } from './TranslationEditor.styles';
 
 const niceLangNames = {
@@ -22,6 +23,7 @@ const FabFormButton: React.FC<IFormButtonProps | FabProps | { component: typeof 
 export const TranslationEditor = withStyles(translationEditorStyles)(({ classes }: TranslationEditorStyledProps) => {
   const [ data, setData ] = useState<ITranslations>({});
   const [ projectPath, setProjectPath ] = useState<string>('');
+  const busy = useContext(BusyContext);
 
   useEffect(() => {
     backendService.onTranslationLoaded((newData, newPath) => {
@@ -55,7 +57,7 @@ export const TranslationEditor = withStyles(translationEditorStyles)(({ classes 
           {Object.keys(data).map(key => <TranslationLine name={key} key={key} languages={languages} />)}
         </TableBody>
       </Table>
-      <FabFormButton component={Fab} className={classes.fab} color="secondary" type="submit">
+      <FabFormButton component={Fab} className={classes.fab} color="secondary" type="submit" disabled={busy}>
         <Save />
       </FabFormButton>
     </Form>

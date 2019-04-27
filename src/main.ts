@@ -7,6 +7,10 @@ import { EVENT_NAMES } from './shared/eventNames';
 import { loadTranslation } from './backend/services/loadTranslation';
 import { saveTranslation } from './backend/services/saveTranslation';
 import { loadProject } from './backend/services/loadProject';
+import { dispatchBusyEvent } from './backend/events/dispatchBusyEvent';
+import { dispatchProjectSelectedEvent } from './backend/events/dispatchProjectSelectedEvent';
+import { dispatchTranslationLoadedEvent } from './backend/events/dispatchTranslationLoadedEvent';
+import { dispatchBackendMessageEvent } from './backend/events/dispatchBackendMessageEvent';
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -44,37 +48,76 @@ app.on('ready', () => {
 });
 
 ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: Event) => {
-  event.sender.send(EVENT_NAMES.BACKEND_BUSY, true);
-  if (mainWindow === null) return;
+  try {
+    dispatchBusyEvent(event.sender, true);
+    if (mainWindow === null) return;
 
-  dialog.showOpenDialog(mainWindow, {
-    properties: ['openDirectory'],
-  }, async (directory?: string[]) => {
-    if (directory === undefined || directory.length === 0) {
-      event.sender.send(EVENT_NAMES.BACKEND_BUSY, false);
-      return;
-    };
-    const projects = await loadProject(directory[0]);
-    event.sender.send(EVENT_NAMES.PROJECT_SELECTED, projects);
-    event.sender.send(EVENT_NAMES.BACKEND_BUSY, false);
-  });
+    dialog.showOpenDialog(mainWindow, {
+      properties: ['openDirectory'],
+    }, async (directory?: string[]) => {
+      if (directory === undefined || directory.length === 0) {
+        dispatchBusyEvent(event.sender, false);
+        return;
+      };
+
+      const projects = await loadProject(directory[0]);
+      if (projects.length === 0) {
+        dispatchBackendMessageEvent(event.sender, {
+          type: 'warning',
+          message: `Could not find any translation projects in '${directory[0]}'`,
+        });
+      }
+
+      dispatchProjectSelectedEvent(event.sender, projects);
+      dispatchBusyEvent(event.sender, false);
+    });
+  } catch (error) {
+    dispatchBackendMessageEvent(event.sender, {
+      type: 'error',
+      message: (error as Error).message,
+    });
+    dispatchBusyEvent(event.sender, false);
+  }
 });
 
 ipcMain.on(EVENT_NAMES.REQUEST_TRANSLATION_CONTENT, async (event: Event, projectPath: string) => {
-  event.sender.send(EVENT_NAMES.BACKEND_BUSY, true);
+  try {
+    dispatchBusyEvent(event.sender, true);
 
-  const translationPath = path.join(projectPath, 'src/i18n/messages');
-  const parsedTranslations = await loadTranslation(translationPath);
+    const translationPath = path.join(projectPath, 'src/i18n/messages');
+    const parsedTranslations = await loadTranslation(translationPath);
 
-  event.sender.send(EVENT_NAMES.TRANSLATION_LOADED, parsedTranslations, projectPath);
-  event.sender.send(EVENT_NAMES.BACKEND_BUSY, false);
+    dispatchTranslationLoadedEvent(event.sender, parsedTranslations, translationPath);
+    dispatchBusyEvent(event.sender, false);
+    dispatchBackendMessageEvent(event.sender, {
+      type: 'info',
+      message: 'Translations loaded',
+    });
+  } catch (error) {
+    dispatchBackendMessageEvent(event.sender, {
+      type: 'error',
+      message: (error as Error).message,
+    });
+    dispatchBusyEvent(event.sender, false);
+  }
 });
 
-ipcMain.on(EVENT_NAMES.REQUEST_SAVE_TRANSLATION, async (event: Event, content: ITranslations, projectPath: string) => {
-  event.sender.send(EVENT_NAMES.BACKEND_BUSY, true);
+ipcMain.on(EVENT_NAMES.REQUEST_SAVE_TRANSLATION, async (event: Event, content: ITranslations, translationPath: string) => {
+  try {
+    dispatchBusyEvent(event.sender, true);
 
-  const translationPath = path.join(projectPath, 'src/i18n/messages');
-  await saveTranslation(translationPath, content);
+    await saveTranslation(translationPath, content);
 
-  event.sender.send(EVENT_NAMES.BACKEND_BUSY, false);
+    dispatchBusyEvent(event.sender, false);
+    dispatchBackendMessageEvent(event.sender, {
+      type: 'success',
+      message: 'Files successfully saved',
+    });
+  } catch (error) {
+    dispatchBackendMessageEvent(event.sender, {
+      type: 'error',
+      message: (error as Error).message,
+    });
+    dispatchBusyEvent(event.sender, false);
+  }
 });

@@ -9,10 +9,14 @@ interface ITranslationFile {
 }
 
 async function loadTranslationFile(path: string): Promise<ITranslationFile> {
-  const data = fs.readFileSync(path, { encoding: 'utf-8' });
-  const parsedData = JSON.parse(data);
+  try {
+    const data = fs.readFileSync(path, { encoding: 'utf-8' });
+    const parsedData = JSON.parse(data);
 
-  return parsedData;
+    return parsedData;
+  } catch(error) {
+    throw new Error(`Could not parse translation file '${path}': ${error.message}`);
+  }
 }
 
 export async function loadTranslation(basePath: string): Promise<ITranslations> {

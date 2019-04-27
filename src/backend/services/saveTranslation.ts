@@ -8,7 +8,11 @@ interface ITranslationFile {
 }
 
 async function saveTranslationFile(path: string, content: ITranslationFile): Promise<void> {
-  fs.writeFileSync(path, JSON.stringify(content, null, 2), { encoding: 'utf-8' });
+  try {
+    fs.writeFileSync(path, JSON.stringify(content, null, 2), { encoding: 'utf-8' });
+  } catch (error) {
+    throw new Error(`Could not save translation file '${path}': ${error.message}`);
+  }
 }
 
 export async function saveTranslation(basePath: string, translations: ITranslations): Promise<void> {

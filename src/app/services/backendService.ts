@@ -3,6 +3,7 @@ import Electron from 'electron';
 import { ITranslations } from '../../shared/ITranslations';
 import { EVENT_NAMES } from '../../shared/eventNames';
 import { IProjectInfo } from '../../shared/IProjectInfo';
+import { IBackendMessage } from '../../shared/IBackendMessage';
 
 interface ElectronWindow extends Window {
   require(module: 'electron'): typeof Electron;
@@ -35,5 +36,9 @@ export const backendService = {
 
   onTranslationLoaded: (callback: (data: ITranslations, projectPath: string) => void) => {
     browserElectron.ipcRenderer.on(EVENT_NAMES.TRANSLATION_LOADED, (event: Electron.Event, data: ITranslations, projectPath: string) => { callback(data, projectPath); });
+  },
+
+  onBackendMessage: (callback: (message: IBackendMessage) => void) => {
+    browserElectron.ipcRenderer.on(EVENT_NAMES.BACKEND_MESSAGE, (event: Electron.Event, message: IBackendMessage) => { callback(message); });
   },
 };

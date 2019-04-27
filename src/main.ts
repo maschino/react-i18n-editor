@@ -122,4 +122,3 @@ ipcMain.on(EVENT_NAMES.REQUEST_SAVE_TRANSLATION, async (event: Event, content: I
     dispatchBusyEvent(event.sender, false);
   }
 });
-// test

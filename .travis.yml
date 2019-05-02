@@ -7,10 +7,10 @@ cache:
 jobs:
   include:
     - stage: Test
-      - script: "yarn lint"
-        name: "Linting"
+      script: "yarn lint"
+      name: "Linting"
     - stage: Build
-      - script: "yarn build:main"
-        name: "Build main process"
-      - script: "yarn build:render"
-        name: "Build renderer"
+      script: "yarn build:main"
+      name: "Build main process"
+    - script: "yarn build:render"
+      name: "Build renderer"

@@ -24,14 +24,13 @@ export const CrashDisplay = withStyles(crashDisplayStyles)(
     }
 
     public static getDerivedStateFromError(error: Error): Partial<CrashDisplayState> | null {
-      console.error('help!!', error);
       return {
         hasError: true,
         error,
       };
     }
 
-    public render() {
+    public render(): React.ReactNode {
       const { children, classes } = this.props;
       const { hasError, error } = this.state;
 

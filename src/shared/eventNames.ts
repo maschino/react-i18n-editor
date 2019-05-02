@@ -10,4 +10,4 @@ export enum EVENT_NAMES {
   REQUEST_SAVE_TRANSLATION = 'request-save-translation',
 
   BACKEND_MESSAGE = 'backend-message',
-};
+}

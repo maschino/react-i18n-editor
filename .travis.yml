@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+  - "10"
+cache:
+  yarn: true
+
+jobs:
+  include:
+    - stage: Test
+      - script: "yarn lint"
+        name: "Linting"
+    - stage: Build
+      - script: "yarn build:main"
+        name: "Build main process"
+      - script: "yarn build:render"
+        name: "Build renderer"

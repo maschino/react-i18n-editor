@@ -6,6 +6,7 @@ import { FolderOpen } from '@material-ui/icons';
 import { backendService } from '../../services/backendService';
 import { BusyContext } from '../BusyContext';
 import { topBarStyles, TopBarStyledProps } from './TopBar.styles';
+import { SearchBox } from '../SearchBox';
 
 export const TopBar = withStyles(topBarStyles)(({ classes }: TopBarStyledProps) => {
   const busy = useContext(BusyContext);
@@ -16,6 +17,7 @@ export const TopBar = withStyles(topBarStyles)(({ classes }: TopBarStyledProps) 
         <Typography variant="h6" color="inherit">
           Translation Editor
         </Typography>
+        <SearchBox />
         <div>
           <IconButton color="inherit" onClick={backendService.requestProjectFolder}>
             <FolderOpen />

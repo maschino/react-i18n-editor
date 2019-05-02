@@ -8,6 +8,7 @@ import { BackendMessageDisplay } from './components/BackendMessageDisplay';
 import { BusyContextProvider } from './components/BusyContext';
 import { ProjectContextProvider } from './components/ProjectContext';
 import { appTheme } from './App.theme';
+import { SearchContextProvider } from './components/SearchContext';
 
 export const App: React.FC = () => {
   return (
@@ -16,7 +17,9 @@ export const App: React.FC = () => {
         <BackendMessageDisplay />
         <BusyContextProvider>
           <ProjectContextProvider>
-            <Layout />
+            <SearchContextProvider>
+              <Layout />
+            </SearchContextProvider>
           </ProjectContextProvider>
         </BusyContextProvider>
       </CrashDisplay>

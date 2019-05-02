@@ -1,27 +1,32 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { FieldGroup } from 'react-ocean-forms';
-import { TableRow, TableCell, withStyles } from '@material-ui/core';
 
-import { TranslationField } from '../TranslationField';
-import { TranslationLineStyledProps, translationLineStyles } from './TranslationLine.styles';
+import { TranslationRow } from '../TranslationRow';
 
-interface ITranslationLineProps extends TranslationLineStyledProps {
+interface ITranslationLineProps {
   name: string;
   languages: string[];
+  showOnlyFiltered: boolean;
 }
 
-export const TranslationLine = withStyles(translationLineStyles)(({ name, languages, classes }: ITranslationLineProps) => {
+export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languages, showOnlyFiltered }: ITranslationLineProps) => {
+  const renderFieldGroup = useCallback(() => {
+    return (
+      <TranslationRow
+        key={name}
+        name={name}
+        languages={languages}
+        showOnlyFiltered={showOnlyFiltered}
+      />
+    );
+  }, [languages, name, showOnlyFiltered]);
+
   return (
-    <FieldGroup name={name} label={name} render={() => (
-      <TableRow key={name}>
-        <TableCell component="th" className={classes.idCell}>{name}</TableCell>
-        {languages.map(lang => (
-          <TableCell key={`tc-tf-${lang}`}>
-            <TranslationField name={lang} label={lang} />
-          </TableCell>
-        ))}
-      </TableRow>
-    )} />
+    <FieldGroup
+      name={name}
+      label={name}
+      render={renderFieldGroup}
+    />
   );
-});
+};

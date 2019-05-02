@@ -1,29 +1,24 @@
 import React from 'react';
 
-import { TextField, withStyles } from '@material-ui/core';
+import { InputBase } from '@material-ui/core';
 import { useField, IUseFieldProps } from 'react-ocean-forms';
 
-import { TranslationFieldStyledProps, translationFieldStyles } from './TranslationField.styles';
+interface TranslationFieldProps extends IUseFieldProps { }
 
-interface ITranslationFieldProps extends IUseFieldProps, TranslationFieldStyledProps { }
-
-export const TranslationField = withStyles(translationFieldStyles)(({ classes, ...other }: ITranslationFieldProps) => {
-  const { fieldProps } = useField(other);
+export const TranslationField: React.FC<TranslationFieldProps> = (props: TranslationFieldProps) => {
+  const { fieldProps } = useField(props);
 
   const fieldValue = typeof fieldProps.value !== 'string' ? '' : fieldProps.value;
-  const isRtl = other.name === 'ar' ? 'rtl' : undefined;
-  const hasError = fieldValue === '';
+  const isRtl = props.name === 'ar' ? 'rtl' : undefined;
 
   return (
-    <TextField
-      className={classes.textfield}
+    <InputBase
       margin="dense"
       multiline
-      variant="outlined"
+      fullWidth
       dir={isRtl}
-      error={hasError}
       {...fieldProps}
       value={fieldValue}
     />
   );
-});
+};

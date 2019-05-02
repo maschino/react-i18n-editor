@@ -16,7 +16,7 @@
     "build": "npm run build:main && npm run build:render",
     "electron:pack": "npm run build && electron-builder --dir",
     "electron:dist": "npm run build && electron-builder",
-    "postinstall": "electron-builder install-app-deps"
+    "lint": "eslint \"src/**\""
   },
   "dependencies": {
     "electron-is-dev": "^1.1.0",
@@ -33,9 +33,15 @@
     "@types/react": "^16.8.14",
     "@types/react-dom": "^16.8.4",
     "@types/react-kawaii": "^0.11.0",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "concurrently": "^4.1.0",
     "electron": "^5.0.0",
     "electron-builder": "^20.39.0",
+    "eslint": "^5.16.0",
+    "eslint-config-oceanjs": "^1.1.0",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.6.0",
     "react-scripts": "^3.0.0",
     "typescript": "^3.4.5",
     "wait-on": "^3.2.0"

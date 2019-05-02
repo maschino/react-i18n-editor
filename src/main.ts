@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain, Event, dialog } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as isDev from 'electron-is-dev';
+import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 
 import { ITranslations } from './shared/ITranslations';
 import { EVENT_NAMES } from './shared/eventNames';
@@ -36,9 +37,9 @@ app.on('ready', () => {
   } else {
     mainWindow.loadURL(
       url.format({
-          pathname: path.join(__dirname, '../build/index.html'),
-          protocol: 'file:',
-          slashes: true
+        pathname: path.join(__dirname, '../build/index.html'),
+        protocol: 'file:',
+        slashes: true
       })
     );
   }
@@ -46,6 +47,10 @@ app.on('ready', () => {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  if (isDev) {
+    installExtension(REACT_DEVELOPER_TOOLS);
+  }
 });
 
 ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: Event) => {
@@ -59,7 +64,7 @@ ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: Event) => {
       if (directory === undefined || directory.length === 0) {
         dispatchBusyEvent(event.sender, false);
         return;
-      };
+      }
 
       const projects = await loadProject(directory[0]);
       if (projects.length === 0) {

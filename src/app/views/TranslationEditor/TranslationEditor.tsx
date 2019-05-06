@@ -40,6 +40,16 @@ export const TranslationEditor = withStyles(translationEditorStyles)(({ classes 
     setShowOnlyMissing(checked);
   }, []);
 
+  if (projectPath === '') {
+    return (
+      <Toolbar>
+        <Typography variant="h6" color="inherit">
+          Please choose a project from the project list on the left.
+        </Typography>
+      </Toolbar>
+    );
+  }
+
   return (
     <Form defaultValues={data} onSubmit={handleSubmit}>
       <Toolbar className={classes.toolbar}>

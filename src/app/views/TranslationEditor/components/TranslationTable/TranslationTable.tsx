@@ -15,9 +15,10 @@ const niceLangNames = {
 interface TranslationTableProps extends TranslationTableStyledProps {
   data: ITranslations;
   showOnlyFiltered: boolean;
+  showOnlyMissing: boolean;
 }
 
-export const TranslationTable = withStyles(translationTableStyles)(({ classes, data, showOnlyFiltered }: TranslationTableProps) => {
+export const TranslationTable = withStyles(translationTableStyles)(({ classes, data, showOnlyFiltered, showOnlyMissing }: TranslationTableProps) => {
   const languages = useMemo(() => {
     return Object.values(data)
       .map(translation => Object.keys(translation))
@@ -31,8 +32,16 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
   }, [languages]);
 
   const translationLines = useMemo(() => {
-    return Object.keys(data).map(key => <TranslationLine name={key} key={key} languages={languages} showOnlyFiltered={showOnlyFiltered} />);
-  }, [data, languages, showOnlyFiltered]);
+    return Object.keys(data).map(key => (
+      <TranslationLine
+        name={key}
+        key={key}
+        languages={languages}
+        showOnlyFiltered={showOnlyFiltered}
+        showOnlyMissing={showOnlyMissing}
+      />
+    ));
+  }, [data, languages, showOnlyFiltered, showOnlyMissing]);
 
   return (
     <Table>

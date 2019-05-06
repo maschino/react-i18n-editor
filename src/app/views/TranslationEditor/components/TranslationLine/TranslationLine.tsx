@@ -8,9 +8,10 @@ interface ITranslationLineProps {
   name: string;
   languages: string[];
   showOnlyFiltered: boolean;
+  showOnlyMissing: boolean;
 }
 
-export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languages, showOnlyFiltered }: ITranslationLineProps) => {
+export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languages, showOnlyFiltered, showOnlyMissing }: ITranslationLineProps) => {
   const renderFieldGroup = useCallback(() => {
     return (
       <TranslationRow
@@ -18,9 +19,10 @@ export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languag
         name={name}
         languages={languages}
         showOnlyFiltered={showOnlyFiltered}
+        showOnlyMissing={showOnlyMissing}
       />
     );
-  }, [languages, name, showOnlyFiltered]);
+  }, [languages, name, showOnlyFiltered, showOnlyMissing]);
 
   return (
     <FieldGroup

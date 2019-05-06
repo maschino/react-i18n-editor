@@ -17,6 +17,8 @@ export const TranslationEditor = withStyles(translationEditorStyles)(({ classes 
   const [ data, setData ] = useState<ITranslations>({});
   const [ projectPath, setProjectPath ] = useState<string>('');
   const [ showOnlyFiltered, setShowOnlyFiltered ] = useState(false);
+  const [ showOnlyMissing, setShowOnlyMissing ] = useState(false);
+
   const busy = useContext(BusyContext);
 
   useEffect(() => {
@@ -34,16 +36,23 @@ export const TranslationEditor = withStyles(translationEditorStyles)(({ classes 
     setShowOnlyFiltered(checked);
   }, []);
 
+  const handleShowOnlyMissingChange = useCallback((event: unknown, checked: boolean) => {
+    setShowOnlyMissing(checked);
+  }, []);
+
   return (
     <Form defaultValues={data} onSubmit={handleSubmit}>
       <Toolbar className={classes.toolbar}>
         <Typography variant="h6" id="tableTitle">
           Translation file
         </Typography>
-        <FormControlLabel control={<Switch value="only-filtered" checked={showOnlyFiltered} onChange={handleShowOnlyFilteredChange} />} label="Show only filtered" />
+        <div>
+          <FormControlLabel control={<Switch value="only-missing" checked={showOnlyMissing} onChange={handleShowOnlyMissingChange} />} label="Show only missing" />
+          <FormControlLabel control={<Switch value="only-filtered" checked={showOnlyFiltered} onChange={handleShowOnlyFilteredChange} />} label="Show only filtered" />
+        </div>
       </Toolbar>
 
-      <TranslationTable data={data} showOnlyFiltered={showOnlyFiltered} />
+      <TranslationTable data={data} showOnlyFiltered={showOnlyFiltered} showOnlyMissing={showOnlyMissing} />
       <FabFormButton component={Fab} className={classes.fab} color="secondary" type="submit" disabled={busy}>
         <Save />
       </FabFormButton>

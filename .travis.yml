@@ -16,6 +16,6 @@ jobs:
     - script: "yarn build:render"
       name: "Build renderer"
       if: branch != master
-    - script: "yarn electron:dist"
+    - script: "yarn electron:dist --win --linux"
       name: "Buid release"
       if: branch = master

@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "A gui editor for dealing with translation files for react-intl.",
   "main": "dist/main.js",
-  "author": "Denis Masinovic",
+  "author": "Denis Masinovic <denis.masinovic@gmail.com>",
   "license": "MIT",
   "homepage": "./",
   "scripts": {

@@ -1,9 +1,9 @@
 {
   "name": "react-i18n-editor",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A gui editor for dealing with translation files for react-intl.",
   "main": "dist/main.js",
-  "author": "Denis Masinovic",
+  "author": "Denis Masinovic <denis.masinovic@gmail.com>",
   "license": "MIT",
   "homepage": "./",
   "scripts": {
@@ -21,6 +21,7 @@
   "dependencies": {
     "electron-devtools-installer": "^2.2.4",
     "electron-is-dev": "^1.1.0",
+    "electron-updater": "^4.1.2",
     "glob": "^7.1.4",
     "react": "^16.10.1",
     "react-dom": "^16.10.1",
@@ -70,10 +71,12 @@
       "package.json"
     ],
     "linux": {
-      "target": "deb"
+      "target": "deb",
+      "publish": "github"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "publish": "github"
     }
   },
   "repository": {

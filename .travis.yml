@@ -1,8 +1,21 @@
 language: node_js
-node_js:
-  - "10"
+node_js: "10"
+services: docker
+
+env:
+  global:
+    - ELECTRON_CACHE=$HOME/.cache/electron
+    - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+
 cache:
+  directories:
+    - node_modules
+    - $HOME/.cache/electron
+    - $HOME/.cache/electron-builder
   yarn: true
+
+before_cache:
+  - rm -rf $HOME/.cache/electron-builder/wine
 
 jobs:
   include:
@@ -12,5 +25,19 @@ jobs:
     - stage: Build
       script: "yarn build:main"
       name: "Build main process"
+      if: branch != master
     - script: "yarn build:render"
       name: "Build renderer"
+      if: branch != master
+    - stage: "Deploy"
+      script:
+      - |
+        docker run --rm \
+        --env-file <(env | grep -vE '\r|\n' | grep -iE 'DEBUG|NODE_|ELECTRON_|YARN_|NPM_|CI|CIRCLE|TRAVIS|APPVEYOR_|CSC_|_TOKEN|_KEY|AWS_|STRIP|BUILD_') \
+        -v ${PWD}:/project \
+        -v ~/.cache/electron:/root/.cache/electron \
+        -v ~/.cache/electron-builder:/root/.cache/electron-builder \
+        electronuserland/builder:wine \
+        /bin/bash -c "yarn --link-duplicates --pure-lockfile && yarn electron:dist --linux --win"
+      name: "Build release"
+      if: branch = master

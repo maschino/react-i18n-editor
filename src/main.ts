@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as url from 'url';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { autoUpdater } from 'electron-updater';
 
 import { ITranslations } from './shared/ITranslations';
 import { EVENT_NAMES } from './shared/eventNames';
@@ -23,6 +24,10 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
+  autoUpdater.checkForUpdatesAndNotify();
+});
+
+app.on('ready', () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 800,
@@ -35,6 +40,7 @@ app.on('ready', () => {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000');
   } else {
+    mainWindow.removeMenu();
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, '../build/index.html'),

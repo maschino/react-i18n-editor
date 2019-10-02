@@ -1,12 +1,12 @@
 import React, { useMemo, useState, useCallback } from 'react';
 
-import { TableCell, TextField, Button, withStyles } from '@material-ui/core';
+import { TableCell, TextField, Button } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
 
 import { ITranslations } from '../../../../../../../shared/ITranslations';
-import { addTranslationKeyFormStyles, AddTranslationKeyFormStyledProps } from './AddTranslationKeyForm.styles';
+import { useAddTranslationKeyFormStyles } from './AddTranslationKeyForm.styles';
 
-interface AddTranslationKeyFormProps extends AddTranslationKeyFormStyledProps {
+interface AddTranslationKeyFormProps {
   data: ITranslations;
   addedKeys: string[];
   idCellClass: string;
@@ -14,7 +14,8 @@ interface AddTranslationKeyFormProps extends AddTranslationKeyFormStyledProps {
   onKeyAdded(newKey: string): void;
 }
 
-export const AddTranslationKeyForm = withStyles(addTranslationKeyFormStyles)(({ data, addedKeys, onKeyAdded, idCellClass, classes }: AddTranslationKeyFormProps) => {
+export const AddTranslationKeyForm: React.FC<AddTranslationKeyFormProps> = ({ data, addedKeys, onKeyAdded, idCellClass }) => {
+  const classes = useAddTranslationKeyFormStyles();
   const [newName, setNewName] = useState('');
   const knownKeys = useMemo(() => Object.keys(data), [data]);
 
@@ -46,4 +47,4 @@ export const AddTranslationKeyForm = withStyles(addTranslationKeyFormStyles)(({ 
       </TableCell>
     </>
   );
-});
+};

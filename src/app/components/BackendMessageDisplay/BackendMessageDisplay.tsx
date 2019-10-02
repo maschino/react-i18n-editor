@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 
-import { Snackbar, IconButton, withStyles, SnackbarContent } from '@material-ui/core';
+import { Snackbar, IconButton, SnackbarContent } from '@material-ui/core';
 import { Close, CheckCircle, Warning, Error, Info } from '@material-ui/icons';
 
 import { backendService } from '../../services/backendService';
 import { IBackendMessage } from '../../../shared/IBackendMessage';
-import { BackendMessageDisplayStyledProps, backendMessageDisplayStyles } from './BackendMessageDisplay.styles';
+import { useBackendMessageDisplayStyles } from './BackendMessageDisplay.styles';
 
 const variantIcon = {
   success: CheckCircle,
@@ -14,7 +14,8 @@ const variantIcon = {
   info: Info,
 };
 
-export const BackendMessageDisplay = withStyles(backendMessageDisplayStyles)(({ classes }: BackendMessageDisplayStyledProps) => {
+export const BackendMessageDisplay: React.FC = () => {
+  const classes = useBackendMessageDisplayStyles();
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [variant, setVariant] = useState('info');
@@ -60,4 +61,4 @@ export const BackendMessageDisplay = withStyles(backendMessageDisplayStyles)(({ 
       />
     </Snackbar>
   );
-});
+};

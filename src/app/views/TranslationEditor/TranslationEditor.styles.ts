@@ -1,6 +1,6 @@
-import { createStyles, Theme, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const translationEditorStyles = (theme: Theme) => createStyles({
+export const useTranslationEditorStyles = makeStyles(theme => ({
   fab: {
     position: 'fixed',
     bottom: theme.spacing(2),
@@ -10,6 +10,4 @@ export const translationEditorStyles = (theme: Theme) => createStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-});
-
-export type TranslationEditorStyledProps = WithStyles<typeof translationEditorStyles>;
+}));

@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
 
-import { Typography, Button, withStyles } from '@material-ui/core';
+import { Typography, Button } from '@material-ui/core';
 import { blueGrey } from '@material-ui/core/colors';
 import { Ghost } from 'react-kawaii';
 
 import { backendService } from '../../services/backendService';
 import { BusyContext } from '../../components/BusyContext';
-import { welcomeViewStyles, WelcomeViewStyledProps } from './WelcomeView.styles';
+import { useWelcomeViewStyles } from './WelcomeView.styles';
 
-export const WelcomeView = withStyles(welcomeViewStyles)(({ classes }: WelcomeViewStyledProps) => {
+export const WelcomeView: React.FC = () => {
+  const classes = useWelcomeViewStyles();
   const [hovered, setHovered] = useState(false);
   const busy = useContext(BusyContext);
 
@@ -30,4 +31,4 @@ export const WelcomeView = withStyles(welcomeViewStyles)(({ classes }: WelcomeVi
       </Button>
     </div>
   );
-});
+};

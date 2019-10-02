@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useCallback } from 'react';
 
-import { Table, TableHead, TableRow, TableCell, TableBody, withStyles, TableFooter } from '@material-ui/core';
+import { Table, TableHead, TableRow, TableCell, TableBody, TableFooter } from '@material-ui/core';
 
 import { ITranslations } from '../../../../../shared/ITranslations';
 import { TranslationLine } from '../TranslationLine';
-import { translationTableStyles, TranslationTableStyledProps } from './TranslationTable.styles';
+import { useTranslationTableStyles } from './TranslationTable.styles';
 import { AddTranslationKeyForm } from './components/AddTranslationKeyForm';
 
 const niceLangNames = {
@@ -14,13 +14,14 @@ const niceLangNames = {
   el: 'Greek'
 };
 
-interface TranslationTableProps extends TranslationTableStyledProps {
+interface TranslationTableProps {
   data: ITranslations;
   showOnlyFiltered: boolean;
   showOnlyMissing: boolean;
 }
 
-export const TranslationTable = withStyles(translationTableStyles)(({ classes, data, showOnlyFiltered, showOnlyMissing }: TranslationTableProps) => {
+export const TranslationTable: React.FC<TranslationTableProps> = ({ data, showOnlyFiltered, showOnlyMissing }) => {
+  const classes = useTranslationTableStyles();
   const [addedKeys, setAddedKeys] = useState<string[]>([]);
 
   const languages = useMemo(() => {
@@ -80,8 +81,10 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
         </TableRow>
       </TableHead>
       <TableBody>
-        {translationLines}
-        {customLines}
+        <React.Suspense fallback={<div>oida</div>}>
+          {translationLines}
+          {customLines}
+        </React.Suspense>
       </TableBody>
       <TableFooter>
         <TableRow>
@@ -95,4 +98,4 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
       </TableFooter>
     </Table>
   );
-});
+};

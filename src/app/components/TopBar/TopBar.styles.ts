@@ -1,6 +1,6 @@
-import { WithStyles, createStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const topBarStyles = (theme: Theme) => createStyles({
+export const useTopBarStyles = makeStyles(theme => ({
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -8,6 +8,4 @@ export const topBarStyles = (theme: Theme) => createStyles({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-});
-
-export type TopBarStyledProps = WithStyles<typeof topBarStyles>;
+}));

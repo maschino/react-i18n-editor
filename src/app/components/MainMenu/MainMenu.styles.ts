@@ -1,8 +1,8 @@
-import { Theme, createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
 const drawerWidth = 240;
 
-export const mainMenuStyles = (theme: Theme) => createStyles({
+export const useMainMenuStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
@@ -11,6 +11,4 @@ export const mainMenuStyles = (theme: Theme) => createStyles({
     width: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
-});
-
-export type StyledMainMenuProps = WithStyles<typeof mainMenuStyles>;
+}));

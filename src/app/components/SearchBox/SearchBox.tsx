@@ -1,13 +1,13 @@
 import React, { useContext, useCallback } from 'react';
 
-import { withStyles, InputBase } from '@material-ui/core';
+import { InputBase } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 
-import { searchBoxStyles, SearchBoxStyledProps } from './SearchBox.styles';
+import { useSearchBoxStyles } from './SearchBox.styles';
 import { SearchContext } from '../SearchContext';
 
-export const SearchBox = withStyles(searchBoxStyles)(({ classes }: SearchBoxStyledProps) => {
-  const { searchString, setSearchString } = useContext(SearchContext);
+export const SearchBox: React.FC = () => {
+  const classes = useSearchBoxStyles();
   const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     setSearchString(event.target.value);
   }, [setSearchString]);
@@ -28,4 +28,4 @@ export const SearchBox = withStyles(searchBoxStyles)(({ classes }: SearchBoxStyl
       />
     </div>
   );
-});
+};

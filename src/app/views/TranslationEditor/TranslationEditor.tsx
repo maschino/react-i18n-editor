@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 
-import { withStyles, Fab, Typography, Toolbar, FormControlLabel, Switch } from '@material-ui/core';
+import { Fab, Typography, Toolbar, FormControlLabel, Switch } from '@material-ui/core';
 import { FabProps } from '@material-ui/core/Fab';
 import { Save } from '@material-ui/icons';
 import { Form, FormButton, IFormButtonProps } from 'react-ocean-forms';
@@ -8,12 +8,13 @@ import { Form, FormButton, IFormButtonProps } from 'react-ocean-forms';
 import { backendService } from '../../services/backendService';
 import { ITranslations } from '../../../shared/ITranslations';
 import { BusyContext } from '../../components/BusyContext';
-import { translationEditorStyles, TranslationEditorStyledProps } from './TranslationEditor.styles';
+import { useTranslationEditorStyles } from './TranslationEditor.styles';
 import { TranslationTable } from './components/TranslationTable';
 
 const FabFormButton: React.FC<IFormButtonProps | FabProps | { component: typeof Fab }> = FormButton;
 
-export const TranslationEditor = withStyles(translationEditorStyles)(({ classes }: TranslationEditorStyledProps) => {
+export const TranslationEditor: React.FC = () => {
+  const classes = useTranslationEditorStyles();
   const [ data, setData ] = useState<ITranslations>({});
   const [ projectPath, setProjectPath ] = useState<string>('');
   const [ showOnlyFiltered, setShowOnlyFiltered ] = useState(false);
@@ -68,4 +69,4 @@ export const TranslationEditor = withStyles(translationEditorStyles)(({ classes 
       </FabFormButton>
     </Form>
   );
-});
+};

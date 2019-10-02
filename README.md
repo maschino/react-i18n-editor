@@ -4,7 +4,7 @@ A graphical interface for dealing with json translation files.
 [![starting screen](./screens/screen1.PNG)]
 
 ## Installation
-Download the .exe or .deb file from the [release](./releases) page and install it.
+Download the .exe or .deb file from the [release](https://github.com/maschino/react-i18n-editor/releases) page and install it.
 
 **Windows users**: The installation exe is not signed. This will trigger a warning by windows which must be ignored
 in order to be able to start the installation.

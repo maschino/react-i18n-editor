@@ -2,7 +2,7 @@ import { createStyles, WithStyles, Theme } from '@material-ui/core';
 
 export const addTranslationKeyFormStyles = (theme: Theme) => createStyles({
   leftIcon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   iconSmall: {
     fontSize: 20,

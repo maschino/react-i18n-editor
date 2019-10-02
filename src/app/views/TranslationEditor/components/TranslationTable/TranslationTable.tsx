@@ -72,7 +72,7 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
   }, [addedKeys]);
 
   return (
-    <Table>
+    <Table size="small">
       <TableHead>
         <TableRow>
           <TableCell className={classes.idCell}>ID</TableCell>
@@ -96,6 +96,3 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
     </Table>
   );
 });
-
-// @ts-ignore
-TranslationTable.whyDidYouRender = true;

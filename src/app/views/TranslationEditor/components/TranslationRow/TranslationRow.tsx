@@ -23,8 +23,8 @@ function checkIsMissing(values: string[]): boolean {
 function checkIsFiltered(searchString: string, name: string, values: string[]): boolean {
   if (searchString === '') return false;
 
-  const lowerCaseSearchString = searchString.toLocaleLowerCase();
-  return (name.toLocaleLowerCase().indexOf(lowerCaseSearchString) !== -1 || values.some(item => item.toLocaleLowerCase().indexOf(lowerCaseSearchString) !== -1));
+  const lowerCaseSearchString = searchString.toLowerCase();
+  return (name.toLowerCase().indexOf(lowerCaseSearchString) !== -1 || values.some(item => item.toLowerCase().indexOf(lowerCaseSearchString) !== -1));
 }
 
 export const TranslationRow = withStyles(translationRowStyles)(({ languages, name, showOnlyFiltered, showOnlyMissing, classes }: TranslationRowProps) => {

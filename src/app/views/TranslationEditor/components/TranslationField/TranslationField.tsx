@@ -3,7 +3,7 @@ import React from 'react';
 import { InputBase } from '@material-ui/core';
 import { useField, IUseFieldProps } from 'react-ocean-forms';
 
-interface TranslationFieldProps extends IUseFieldProps { }
+interface TranslationFieldProps extends IUseFieldProps<string> { }
 
 export const TranslationField: React.FC<TranslationFieldProps> = (props: TranslationFieldProps) => {
   const { fieldProps } = useField(props);

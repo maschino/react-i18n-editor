@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, Event, dialog } from 'electron';
+import { app, BrowserWindow, ipcMain, IpcMainEvent, dialog } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as isDev from 'electron-is-dev';
@@ -53,7 +53,7 @@ app.on('ready', () => {
   }
 });
 
-ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: Event) => {
+ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: IpcMainEvent) => {
   try {
     dispatchBusyEvent(event.sender, true);
     if (mainWindow === null) return;
@@ -86,7 +86,7 @@ ipcMain.on(EVENT_NAMES.REQUEST_PROJECT_FOLDER, (event: Event) => {
   }
 });
 
-ipcMain.on(EVENT_NAMES.REQUEST_TRANSLATION_CONTENT, async (event: Event, projectPath: string) => {
+ipcMain.on(EVENT_NAMES.REQUEST_TRANSLATION_CONTENT, async (event: IpcMainEvent, projectPath: string) => {
   try {
     dispatchBusyEvent(event.sender, true);
 
@@ -108,7 +108,7 @@ ipcMain.on(EVENT_NAMES.REQUEST_TRANSLATION_CONTENT, async (event: Event, project
   }
 });
 
-ipcMain.on(EVENT_NAMES.REQUEST_SAVE_TRANSLATION, async (event: Event, content: ITranslations, translationPath: string) => {
+ipcMain.on(EVENT_NAMES.REQUEST_SAVE_TRANSLATION, async (event: IpcMainEvent, content: ITranslations, translationPath: string) => {
   try {
     dispatchBusyEvent(event.sender, true);
 

@@ -1,9 +1,7 @@
-import { createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const translationTableStyles = () => createStyles({
+export const useTranslationTableStyles = makeStyles({
   idCell: {
     maxWidth: '150px',
   },
 });
-
-export type TranslationTableStyledProps = WithStyles<typeof translationTableStyles>;

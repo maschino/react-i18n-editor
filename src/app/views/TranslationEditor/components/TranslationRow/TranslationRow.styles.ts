@@ -1,11 +1,12 @@
-import { createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const translationRowStyles = () => createStyles({
+export const useTranslationRowStyles = makeStyles({
   idCell: {
     maxWidth: '150px',
     textOverflow: 'ellipsis',
     overflow: 'hidden'
+  },
+  hiddenRow: {
+    display: 'none'
   }
 });
-
-export type TranslationRowStyledProps = WithStyles<typeof translationRowStyles>;

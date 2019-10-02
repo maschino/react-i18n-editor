@@ -1,6 +1,6 @@
-import { createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const welcomeViewStyles = () => createStyles({
+export const useWelcomeViewStyles = makeStyles({
   container: {
     padding: '50px',
     display: 'flex',
@@ -11,5 +11,3 @@ export const welcomeViewStyles = () => createStyles({
     margin: '40px 0',
   }
 });
-
-export type WelcomeViewStyledProps = WithStyles<typeof welcomeViewStyles>;

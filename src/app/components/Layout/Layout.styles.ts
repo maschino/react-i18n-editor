@@ -1,6 +1,6 @@
-import { Theme, createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const layoutStyles = (theme: Theme) => createStyles({
+export const useLayoutStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
@@ -9,6 +9,4 @@ export const layoutStyles = (theme: Theme) => createStyles({
     padding: theme.spacing(3),
   },
   toolbar: theme.mixins.toolbar,
-});
-
-export type StyledLayoutProps = WithStyles<typeof layoutStyles>;
+}));

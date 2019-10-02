@@ -1,12 +1,10 @@
-import { createStyles, WithStyles, Theme } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 
-export const addTranslationKeyFormStyles = (theme: Theme) => createStyles({
+export const useAddTranslationKeyFormStyles = makeStyles(theme => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
   iconSmall: {
     fontSize: 20,
   },
-});
-
-export type AddTranslationKeyFormStyledProps = WithStyles<typeof addTranslationKeyFormStyles>;
+}));

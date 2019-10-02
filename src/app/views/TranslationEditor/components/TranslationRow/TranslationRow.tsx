@@ -1,15 +1,15 @@
 import React, { useContext, useMemo } from 'react';
 
-import { TableRow, TableCell, withStyles } from '@material-ui/core';
+import { TableRow, TableCell } from '@material-ui/core';
 import { useFormContext } from 'react-ocean-forms';
 
 import { SearchContext } from '../../../../components/SearchContext';
 import { LineTitle } from './components/LineTitle';
 import { LanguageCells } from './components/LanguageCells';
 
-import { TranslationRowStyledProps, translationRowStyles } from './TranslationRow.styles';
+import { useTranslationRowStyles } from './TranslationRow.styles';
 
-interface TranslationRowProps extends TranslationRowStyledProps {
+interface TranslationRowProps {
   languages: string[];
   name: string;
   showOnlyFiltered: boolean;
@@ -17,21 +17,22 @@ interface TranslationRowProps extends TranslationRowStyledProps {
 }
 
 function checkIsMissing(values: string[]): boolean {
-  return values.some(value => value === '');
+  return values.some(value => value === undefined || value === '');
 }
 
 function checkIsFiltered(searchString: string, name: string, values: string[]): boolean {
   if (searchString === '') return false;
 
   const lowerCaseSearchString = searchString.toLowerCase();
-  return (name.toLowerCase().indexOf(lowerCaseSearchString) !== -1 || values.some(item => item.toLowerCase().indexOf(lowerCaseSearchString) !== -1));
+  return (name.toLowerCase().indexOf(lowerCaseSearchString) !== -1 || values.some(item => item !== undefined && item.toLowerCase().indexOf(lowerCaseSearchString) !== -1));
 }
 
-export const TranslationRow = withStyles(translationRowStyles)(({ languages, name, showOnlyFiltered, showOnlyMissing, classes }: TranslationRowProps) => {
+export const TranslationRow: React.FC<TranslationRowProps> = ({ languages, name, showOnlyFiltered, showOnlyMissing }) => {
+  const classes = useTranslationRowStyles();
   const { searchString } = useContext(SearchContext);
   const { getValues } = useFormContext();
 
-  const rowStyle = useMemo(() => {
+  const rowClassName = useMemo(() => {
     if (!showOnlyFiltered && !showOnlyMissing) return undefined;
 
     const { [name]: groupValues } = getValues();
@@ -50,17 +51,15 @@ export const TranslationRow = withStyles(translationRowStyles)(({ languages, nam
       return undefined;
     }
 
-    return {
-      display: 'none',
-    };
-  }, [getValues, name, searchString, showOnlyFiltered, showOnlyMissing]);
+    return classes.hiddenRow;
+  }, [classes.hiddenRow, getValues, name, searchString, showOnlyFiltered, showOnlyMissing]);
 
   return (
-    <TableRow key={name} style={rowStyle}>
+    <TableRow key={name} className={rowClassName}>
       <TableCell component="th" className={classes.idCell} title={name}>
         <LineTitle name={name} />
       </TableCell>
       <LanguageCells languages={languages} />
     </TableRow>
   );
-});
+};

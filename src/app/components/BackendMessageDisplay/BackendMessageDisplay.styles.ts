@@ -1,7 +1,7 @@
-import { Theme, createStyles, WithStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import { green, amber } from '@material-ui/core/colors';
 
-export const backendMessageDisplayStyles = (theme: Theme) => createStyles({
+export const useBackendMessageDisplayStyles = makeStyles(theme => ({
   success: {
     backgroundColor: green[600],
   },
@@ -28,6 +28,4 @@ export const backendMessageDisplayStyles = (theme: Theme) => createStyles({
   margin: {
     margin: theme.spacing(1),
   },
-});
-
-export type BackendMessageDisplayStyledProps = WithStyles<typeof backendMessageDisplayStyles>;
+}));

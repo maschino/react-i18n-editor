@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 
-import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
+import { Drawer, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { FolderOpenTwoTone } from '@material-ui/icons';
 
 import { backendService } from '../../services/backendService';
 import { BusyContext } from '../BusyContext';
 import { ProjectContext } from '../ProjectContext';
-import { mainMenuStyles, StyledMainMenuProps } from './MainMenu.styles';
+import { useMainMenuStyles } from './MainMenu.styles';
 
-export const MainMenu = withStyles(mainMenuStyles)(({ classes }: StyledMainMenuProps) => {
+export const MainMenu: React.FC = () => {
+  const classes = useMainMenuStyles();
   const busy = useContext(BusyContext);
   const projects = useContext(ProjectContext);
 
@@ -33,4 +34,4 @@ export const MainMenu = withStyles(mainMenuStyles)(({ classes }: StyledMainMenuP
       </List>
     </Drawer>
   );
-});
+};

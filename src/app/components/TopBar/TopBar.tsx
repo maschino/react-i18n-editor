@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 
-import { AppBar, Toolbar, Typography, withStyles, LinearProgress, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, LinearProgress, IconButton } from '@material-ui/core';
 import { FolderOpen } from '@material-ui/icons';
 
 import { backendService } from '../../services/backendService';
 import { BusyContext } from '../BusyContext';
-import { topBarStyles, TopBarStyledProps } from './TopBar.styles';
+import { useTopBarStyles } from './TopBar.styles';
 import { SearchBox } from '../SearchBox';
 
-export const TopBar = withStyles(topBarStyles)(({ classes }: TopBarStyledProps) => {
+export const TopBar: React.FC = () => {
+  const classes = useTopBarStyles();
   const busy = useContext(BusyContext);
 
   return (
@@ -27,4 +28,4 @@ export const TopBar = withStyles(topBarStyles)(({ classes }: TopBarStyledProps) 
       <LinearProgress hidden={!busy} />
     </AppBar>
   );
-});
+};

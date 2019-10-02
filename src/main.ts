@@ -3,6 +3,7 @@ import * as path from 'path';
 import * as url from 'url';
 import * as isDev from 'electron-is-dev';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
+import { autoUpdater } from 'electron-updater';
 
 import { ITranslations } from './shared/ITranslations';
 import { EVENT_NAMES } from './shared/eventNames';
@@ -20,6 +21,10 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+app.on('ready', () => {
+  autoUpdater.checkForUpdatesAndNotify();
 });
 
 app.on('ready', () => {

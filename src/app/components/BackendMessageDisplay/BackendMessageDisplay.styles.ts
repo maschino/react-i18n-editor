@@ -19,14 +19,14 @@ export const backendMessageDisplayStyles = (theme: Theme) => createStyles({
   },
   iconVariant: {
     opacity: 0.9,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   message: {
     display: 'flex',
     alignItems: 'center',
   },
   margin: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 });
 

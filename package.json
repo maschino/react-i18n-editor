@@ -1,6 +1,6 @@
 {
   "name": "react-i18n-editor",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "A gui editor for dealing with translation files for react-intl.",
   "main": "dist/main.js",
   "author": "Denis Masinovic <denis.masinovic@gmail.com>",

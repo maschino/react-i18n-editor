@@ -12,5 +12,10 @@ jobs:
     - stage: Build
       script: "yarn build:main"
       name: "Build main process"
+      if: branch != master
     - script: "yarn build:render"
       name: "Build renderer"
+      if: branch != master
+    - script: "yarn electron:dist"
+      name: "Buid release"
+      if: branch = master

@@ -40,6 +40,7 @@ app.on('ready', () => {
   if (isDev) {
     mainWindow.loadURL('http://localhost:3000');
   } else {
+    mainWindow.removeMenu();
     mainWindow.loadURL(
       url.format({
         pathname: path.join(__dirname, '../build/index.html'),

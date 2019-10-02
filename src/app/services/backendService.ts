@@ -10,6 +10,7 @@ interface ElectronWindow extends Window {
   oida(): string;
 }
 
+// eslint-disable-next-line no-var
 declare var window: ElectronWindow;
 const browserElectron = window.require('electron');
 

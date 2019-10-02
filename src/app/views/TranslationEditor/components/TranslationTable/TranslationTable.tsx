@@ -96,6 +96,3 @@ export const TranslationTable = withStyles(translationTableStyles)(({ classes, d
     </Table>
   );
 });
-
-// @ts-ignore
-TranslationTable.whyDidYouRender = true;

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { green, amber } from '@material-ui/core/colors';
 
-export const useBackendMessageDisplayStyles = makeStyles(theme => ({
+export const useBackendMessageDisplayStyles = makeStyles((theme) => ({
   success: {
     backgroundColor: green[600],
   },

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-export const useSearchBoxStyles = makeStyles(theme => ({
+export const useSearchBoxStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,

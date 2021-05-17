@@ -26,7 +26,13 @@ export const WelcomeView: React.FC = () => {
       <div className={classes.ghostContainer}>
         <Ghost size={240} mood={ghostClass} color={blueGrey['200']} />
       </div>
-      <Button variant="contained" color="secondary" onMouseOver={() => setHovered(true)} onMouseOut={() => setHovered(false)} onClick={backendService.requestProjectFolder}>
+      <Button
+        variant="contained"
+        color="secondary"
+        onMouseOver={() => setHovered(true)}
+        onMouseOut={() => setHovered(false)}
+        onClick={backendService.requestProjectFolder}
+      >
         Select project folder
       </Button>
     </div>

@@ -4,9 +4,9 @@ export const useTranslationRowStyles = makeStyles({
   idCell: {
     maxWidth: '150px',
     textOverflow: 'ellipsis',
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   hiddenRow: {
-    display: 'none'
-  }
+    display: 'none',
+  },
 });

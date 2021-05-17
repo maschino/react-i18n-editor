@@ -10,9 +10,5 @@ export const BusyContextProvider: React.FC = ({ children }) => {
     backendService.onBusy(setBusy);
   }, []);
 
-  return (
-    <BusyContext.Provider value={busy}>
-      {children}
-    </BusyContext.Provider>
-  );
+  return <BusyContext.Provider value={busy}>{children}</BusyContext.Provider>;
 };

@@ -11,7 +11,12 @@ interface ITranslationLineProps {
   showOnlyMissing: boolean;
 }
 
-export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languages, showOnlyFiltered, showOnlyMissing }: ITranslationLineProps) => {
+export const TranslationLine: React.FC<ITranslationLineProps> = ({
+  name,
+  languages,
+  showOnlyFiltered,
+  showOnlyMissing,
+}: ITranslationLineProps) => {
   const renderFieldGroup = useCallback(() => {
     return (
       <TranslationRow
@@ -24,11 +29,5 @@ export const TranslationLine: React.FC<ITranslationLineProps> = ({ name, languag
     );
   }, [languages, name, showOnlyFiltered, showOnlyMissing]);
 
-  return (
-    <FieldGroup
-      name={name}
-      label={name}
-      render={renderFieldGroup}
-    />
-  );
+  return <FieldGroup name={name} label={name} render={renderFieldGroup} />;
 };

@@ -1,33 +1,35 @@
-import React, { useMemo, useState, useCallback } from 'react';
-
-import { Table, TableHead, TableRow, TableCell, TableBody, TableFooter } from '@material-ui/core';
-
-import { ITranslations } from '../../../../../shared/ITranslations';
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableRow } from '@material-ui/core';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Translations } from '../../../../../shared/Translations';
 import { TranslationLine } from '../TranslationLine';
-import { useTranslationTableStyles } from './TranslationTable.styles';
 import { AddTranslationKeyForm } from './components/AddTranslationKeyForm';
+import { useTranslationTableStyles } from './TranslationTable.styles';
 
-const niceLangNames = {
+const niceLangNames: Record<string, string> = {
   de: 'German',
   en: 'English',
   ar: 'Arabic',
-  el: 'Greek'
+  el: 'Greek',
 };
 
 interface TranslationTableProps {
-  data: ITranslations;
+  data: Translations;
   showOnlyFiltered: boolean;
   showOnlyMissing: boolean;
 }
 
-export const TranslationTable: React.FC<TranslationTableProps> = ({ data, showOnlyFiltered, showOnlyMissing }) => {
+export const TranslationTable: React.FC<TranslationTableProps> = ({
+  data,
+  showOnlyFiltered,
+  showOnlyMissing,
+}) => {
   const classes = useTranslationTableStyles();
   const [addedKeys, setAddedKeys] = useState<string[]>([]);
 
   const languages = useMemo(() => {
     return Object.values(data)
-      .map(translation => Object.keys(translation))
-      .reduce((item, arr) => ([ ...arr, ...item ]), [])
+      .map((translation) => Object.keys(translation))
+      .reduce((item, arr) => [...arr, ...item], [])
       .filter((value, index, self) => self.indexOf(value) === index)
       .sort((a, b) => {
         if (a === 'en') return -1;
@@ -38,11 +40,11 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data, showOn
   }, [data]);
 
   const languageHeaders = useMemo(() => {
-    return languages.map(lang => <TableCell key={lang}>{niceLangNames[lang]}</TableCell>);
+    return languages.map((lang) => <TableCell key={lang}>{niceLangNames[lang]}</TableCell>);
   }, [languages]);
 
   const translationLines = useMemo(() => {
-    return Object.keys(data).map(key => (
+    return Object.keys(data).map((key) => (
       <TranslationLine
         name={key}
         key={key}
@@ -54,7 +56,7 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data, showOn
   }, [data, languages, showOnlyFiltered, showOnlyMissing]);
 
   const customLines = useMemo(() => {
-    return addedKeys.map(key => (
+    return addedKeys.map((key) => (
       <TranslationLine
         name={key}
         key={key}
@@ -65,12 +67,12 @@ export const TranslationTable: React.FC<TranslationTableProps> = ({ data, showOn
     ));
   }, [addedKeys, languages, showOnlyFiltered, showOnlyMissing]);
 
-  const handleAddKey = useCallback((newKey: string) => {
-    setAddedKeys([
-      ...addedKeys,
-      newKey,
-    ]);
-  }, [addedKeys]);
+  const handleAddKey = useCallback(
+    (newKey: string) => {
+      setAddedKeys([...addedKeys, newKey]);
+    },
+    [addedKeys]
+  );
 
   return (
     <Table size="small">

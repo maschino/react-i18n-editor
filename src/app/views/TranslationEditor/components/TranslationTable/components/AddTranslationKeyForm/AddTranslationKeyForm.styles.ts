@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useAddTranslationKeyFormStyles = makeStyles(theme => ({
+export const useAddTranslationKeyFormStyles = makeStyles((theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },

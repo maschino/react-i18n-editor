@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useTranslationFieldStyles = makeStyles(theme => ({
+export const useTranslationFieldStyles = makeStyles((theme) => ({
   textarea: {
     display: 'block',
     width: '100%',

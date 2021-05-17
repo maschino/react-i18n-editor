@@ -1,8 +1,7 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import * as glob from 'glob';
-
-import { IProjectInfo } from '../../shared/IProjectInfo';
+import * as path from 'path';
+import { ProjectInfo } from '../../shared/ProjectInfo';
 
 /**
  * Searches for the base package path based on the given searchPath.
@@ -16,7 +15,9 @@ const recursiveSearchPackagePath = (searchPath: string): string | undefined => {
 
   const absoluteSearchPath = path.resolve(searchPath);
 
-  if (fs.existsSync(packageJsonPath)) { return searchPath; }
+  if (fs.existsSync(packageJsonPath)) {
+    return searchPath;
+  }
 
   const parentPath = path.join(searchPath, '..');
   const absoluteParentPath = path.resolve(parentPath);
@@ -30,21 +31,14 @@ const recursiveSearchPackagePath = (searchPath: string): string | undefined => {
   return recursiveSearchPackagePath(path.join(searchPath, '..'));
 };
 
-export async function loadProject(basePath: string): Promise<IProjectInfo[]> {
-  const translationFiles = glob.sync(
-    path.join(basePath, '**/i18n/messages/*.json'),
-    {
-      ignore: [
-        '**/build/**',
-        '**/node_modules/**',
-        '**/.git/**'
-      ]
-    }
-  );
+export async function loadProject(basePath: string): Promise<ProjectInfo[]> {
+  const translationFiles = glob.sync(path.join(basePath, '**/i18n/messages/*.json'), {
+    ignore: ['**/build/**', '**/node_modules/**', '**/.git/**'],
+  });
 
-  const projects = { };
+  const projects: Record<string, ProjectInfo> = {};
 
-  translationFiles.forEach(file => {
+  translationFiles.forEach((file) => {
     const packageJsonPath = recursiveSearchPackagePath(file);
     if (packageJsonPath === undefined) return;
 

@@ -1,4 +1,4 @@
-export interface IProjectInfo {
+export interface ProjectInfo {
   name: string;
   path: string;
 }

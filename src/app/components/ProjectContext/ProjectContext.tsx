@@ -1,6 +1,5 @@
 import { createContext } from 'react';
+import { ProjectInfo } from '../../../shared/ProjectInfo';
 
-import { IProjectInfo } from '../../../shared/IProjectInfo';
 
-export const ProjectContext = createContext<IProjectInfo[]>([]);
-
+export const ProjectContext = createContext<ProjectInfo[]>([]);

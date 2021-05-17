@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 
-export const useTranslationEditorStyles = makeStyles(theme => ({
+export const useTranslationEditorStyles = makeStyles((theme) => ({
   fab: {
     position: 'fixed',
     bottom: theme.spacing(2),

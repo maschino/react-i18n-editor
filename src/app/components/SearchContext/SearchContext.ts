@@ -1,5 +1,4 @@
 import { createContext } from 'react';
-
 export interface SearchContext {
   searchString: string;
   setSearchString(searchString: string): void;

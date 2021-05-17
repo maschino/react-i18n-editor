@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-
-import { ITranslations } from '../../shared/ITranslations';
+import { Translations } from '../../shared/Translations';
 
 interface ITranslationFile {
   [key: string]: string;
@@ -15,23 +14,24 @@ async function saveTranslationFile(path: string, content: ITranslationFile): Pro
   }
 }
 
-export async function saveTranslation(basePath: string, translations: ITranslations): Promise<void> {
-  const languages: { [key: string]: ITranslationFile } = { };
-  Object.keys(translations).forEach(key => {
+export async function saveTranslation(basePath: string, translations: Translations): Promise<void> {
+  const languages: { [key: string]: ITranslationFile } = {};
+  Object.keys(translations).forEach((key) => {
     const item = translations[key];
-    Object.keys(item).forEach(language => {
+    Object.keys(item).forEach((language) => {
       if (item[language] === '') return;
 
       if (languages[language] === undefined) {
-        languages[language] = { };
+        languages[language] = {};
       }
 
       languages[language][key] = item[language];
     });
   });
 
-  await Promise.all(Object.keys(languages).map(language => saveTranslationFile(
-    path.join(basePath, `${language}.json`),
-    languages[language],
-  )));
+  await Promise.all(
+    Object.keys(languages).map((language) =>
+      saveTranslationFile(path.join(basePath, `${language}.json`), languages[language])
+    )
+  );
 }

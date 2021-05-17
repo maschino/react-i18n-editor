@@ -1,27 +1,35 @@
-import React, { useMemo, useState, useCallback } from 'react';
-
-import { TableCell, TextField, Button } from '@material-ui/core';
+import { Button, TableCell, TextField } from '@material-ui/core';
 import { Add } from '@material-ui/icons';
-
-import { ITranslations } from '../../../../../../../shared/ITranslations';
+import React, { useCallback, useMemo, useState } from 'react';
+import { Translations } from '../../../../../../../shared/Translations';
 import { useAddTranslationKeyFormStyles } from './AddTranslationKeyForm.styles';
 
+
+
 interface AddTranslationKeyFormProps {
-  data: ITranslations;
+  data: Translations;
   addedKeys: string[];
   idCellClass: string;
 
   onKeyAdded(newKey: string): void;
 }
 
-export const AddTranslationKeyForm: React.FC<AddTranslationKeyFormProps> = ({ data, addedKeys, onKeyAdded, idCellClass }) => {
+export const AddTranslationKeyForm: React.FC<AddTranslationKeyFormProps> = ({
+  data,
+  addedKeys,
+  onKeyAdded,
+  idCellClass,
+}) => {
   const classes = useAddTranslationKeyFormStyles();
   const [newName, setNewName] = useState('');
   const knownKeys = useMemo(() => Object.keys(data), [data]);
 
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    setNewName(event.target.value);
-  }, [setNewName]);
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+      setNewName(event.target.value);
+    },
+    [setNewName]
+  );
 
   const handleClick = useCallback(() => {
     if (newName === '') return;
@@ -37,7 +45,12 @@ export const AddTranslationKeyForm: React.FC<AddTranslationKeyFormProps> = ({ da
   return (
     <>
       <TableCell className={idCellClass}>
-        <TextField fullWidth value={newName} onChange={handleChange} placeholder="Translation key" />
+        <TextField
+          fullWidth
+          value={newName}
+          onChange={handleChange}
+          placeholder="Translation key"
+        />
       </TableCell>
       <TableCell>
         <Button color="primary" variant="contained" size="small" onClick={handleClick}>

@@ -25,9 +25,16 @@ export const MainMenu: React.FC = () => {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {projects.map(project => (
-          <ListItem key={project.path} button onClick={() => backendService.requestTranslationContent(project.path)} disabled={busy}>
-            <ListItemIcon><FolderOpenTwoTone /></ListItemIcon>
+        {projects.map((project) => (
+          <ListItem
+            key={project.path}
+            button
+            onClick={() => backendService.requestTranslationContent(project.path)}
+            disabled={busy}
+          >
+            <ListItemIcon>
+              <FolderOpenTwoTone />
+            </ListItemIcon>
             <ListItemText primary={project.name} />
           </ListItem>
         ))}

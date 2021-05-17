@@ -10,16 +10,12 @@ interface LanguageCellsProps {
 
 export const LanguageCells: React.FC<LanguageCellsProps> = ({ languages }) => {
   const cells = useMemo(() => {
-    return languages.map(lang => (
+    return languages.map((lang) => (
       <TableCell key={`tc-tf-${lang}`}>
         <TranslationField name={lang} label={lang} />
       </TableCell>
     ));
   }, [languages]);
 
-  return (
-    <>
-      {cells}
-    </>
-  );
+  return <>{cells}</>;
 };

@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
-
-import { Fab, Typography, Toolbar, FormControlLabel, Switch } from '@material-ui/core';
+import { Fab, FormControlLabel, Switch, Toolbar, Typography } from '@material-ui/core';
 import { FabProps } from '@material-ui/core/Fab';
 import { Save } from '@material-ui/icons';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Form, FormButton, IFormButtonProps } from 'react-ocean-forms';
-
-import { backendService } from '../../services/backendService';
-import { ITranslations } from '../../../shared/ITranslations';
+import { Translations } from '../../../shared/Translations';
 import { BusyContext } from '../../components/BusyContext';
-import { useTranslationEditorStyles } from './TranslationEditor.styles';
+import { backendService } from '../../services/backendService';
 import { TranslationTable } from './components/TranslationTable';
+import { useTranslationEditorStyles } from './TranslationEditor.styles';
 
 const FabFormButton: React.FC<IFormButtonProps | FabProps | { component: typeof Fab }> = FormButton;
 
 export const TranslationEditor: React.FC = () => {
   const classes = useTranslationEditorStyles();
-  const [ data, setData ] = useState<ITranslations>({});
-  const [ projectPath, setProjectPath ] = useState<string>('');
-  const [ showOnlyFiltered, setShowOnlyFiltered ] = useState(false);
-  const [ showOnlyMissing, setShowOnlyMissing ] = useState(false);
+  const [data, setData] = useState<Translations>({});
+  const [projectPath, setProjectPath] = useState<string>('');
+  const [showOnlyFiltered, setShowOnlyFiltered] = useState(false);
+  const [showOnlyMissing, setShowOnlyMissing] = useState(false);
 
   const busy = useContext(BusyContext);
 
@@ -29,9 +27,12 @@ export const TranslationEditor: React.FC = () => {
     });
   }, []);
 
-  const handleSubmit = useCallback((values: ITranslations) => {
-    backendService.requestSaveTranslation(values, projectPath);
-  }, [projectPath]);
+  const handleSubmit = useCallback(
+    (values: Translations) => {
+      backendService.requestSaveTranslation(values, projectPath);
+    },
+    [projectPath]
+  );
 
   const handleShowOnlyFilteredChange = useCallback((event: unknown, checked: boolean) => {
     setShowOnlyFiltered(checked);
@@ -58,13 +59,41 @@ export const TranslationEditor: React.FC = () => {
           Translation file
         </Typography>
         <div>
-          <FormControlLabel control={<Switch value="only-missing" checked={showOnlyMissing} onChange={handleShowOnlyMissingChange} />} label="Show only missing" />
-          <FormControlLabel control={<Switch value="only-filtered" checked={showOnlyFiltered} onChange={handleShowOnlyFilteredChange} />} label="Show only filtered" />
+          <FormControlLabel
+            control={
+              <Switch
+                value="only-missing"
+                checked={showOnlyMissing}
+                onChange={handleShowOnlyMissingChange}
+              />
+            }
+            label="Show only missing"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                value="only-filtered"
+                checked={showOnlyFiltered}
+                onChange={handleShowOnlyFilteredChange}
+              />
+            }
+            label="Show only filtered"
+          />
         </div>
       </Toolbar>
 
-      <TranslationTable data={data} showOnlyFiltered={showOnlyFiltered} showOnlyMissing={showOnlyMissing} />
-      <FabFormButton component={Fab} className={classes.fab} color="secondary" type="submit" disabled={busy}>
+      <TranslationTable
+        data={data}
+        showOnlyFiltered={showOnlyFiltered}
+        showOnlyMissing={showOnlyMissing}
+      />
+      <FabFormButton
+        component={Fab}
+        className={classes.fab}
+        color="secondary"
+        type="submit"
+        disabled={busy}
+      >
         <Save />
       </FabFormButton>
     </Form>

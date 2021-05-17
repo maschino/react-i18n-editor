@@ -1,10 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
-
-import { Snackbar, IconButton, SnackbarContent } from '@material-ui/core';
-import { Close, CheckCircle, Warning, Error, Info } from '@material-ui/icons';
-
+import { IconButton, Snackbar, SnackbarContent } from '@material-ui/core';
+import { CheckCircle, Close, Error, Info, Warning } from '@material-ui/icons';
+import React, { useCallback, useEffect, useState } from 'react';
+import { BackendMessage } from '../../../shared/BackendMessage';
 import { backendService } from '../../services/backendService';
-import { IBackendMessage } from '../../../shared/IBackendMessage';
 import { useBackendMessageDisplayStyles } from './BackendMessageDisplay.styles';
 
 const variantIcon = {
@@ -18,10 +16,10 @@ export const BackendMessageDisplay: React.FC = () => {
   const classes = useBackendMessageDisplayStyles();
   const [visible, setVisible] = useState(false);
   const [message, setMessage] = useState('');
-  const [variant, setVariant] = useState('info');
+  const [variant, setVariant] = useState<keyof typeof variantIcon>('info');
 
   useEffect(() => {
-    backendService.onBackendMessage((backendMessage: IBackendMessage) => {
+    backendService.onBackendMessage((backendMessage: BackendMessage) => {
       setMessage(backendMessage.message);
       setVariant(backendMessage.type);
       setVisible(true);
@@ -51,10 +49,7 @@ export const BackendMessageDisplay: React.FC = () => {
           </span>
         }
         action={
-          <IconButton
-            color="inherit"
-            onClick={handleClose}
-          >
+          <IconButton color="inherit" onClick={handleClose}>
             <Close className={classes.icon} />
           </IconButton>
         }

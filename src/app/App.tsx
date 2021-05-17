@@ -1,13 +1,10 @@
-import React from 'react';
-
 import { MuiThemeProvider } from '@material-ui/core';
-
-import { Layout } from './components/Layout';
-import { CrashDisplay } from './components/CrashDisplay';
+import { appTheme } from './App.theme';
 import { BackendMessageDisplay } from './components/BackendMessageDisplay';
 import { BusyContextProvider } from './components/BusyContext';
+import { CrashDisplay } from './components/CrashDisplay';
+import { Layout } from './components/Layout';
 import { ProjectContextProvider } from './components/ProjectContext';
-import { appTheme } from './App.theme';
 import { SearchContextProvider } from './components/SearchContext';
 
 export const App: React.FC = () => {

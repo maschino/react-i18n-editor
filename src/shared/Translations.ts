@@ -1,4 +1,4 @@
-export interface ITranslations {
+export interface Translations {
   [key: string]: {
     [key: string]: string;
   };

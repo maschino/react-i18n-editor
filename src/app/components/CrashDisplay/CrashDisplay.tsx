@@ -11,7 +11,7 @@ interface CrashDisplayState {
   error?: Error;
 }
 
-interface CrashDisplayProps extends CrashDisplayStyledProps { }
+interface CrashDisplayProps extends CrashDisplayStyledProps {}
 
 export const CrashDisplay = withStyles(crashDisplayStyles)(
   class CrashDisplay extends React.Component<CrashDisplayProps, CrashDisplayState> {
@@ -47,9 +47,8 @@ export const CrashDisplay = withStyles(crashDisplayStyles)(
               <Ghost size={240} mood="ko" color={red[100]} />
             </div>
             <Typography variant="body1" color="inherit">
-              Something happened to make the app crash completely. This is
-              not supposed to happen. Hopefully the details below can help
-              you understand what went wrong.
+              Something happened to make the app crash completely. This is not supposed to happen.
+              Hopefully the details below can help you understand what went wrong.
             </Typography>
             {error !== undefined && (
               <>

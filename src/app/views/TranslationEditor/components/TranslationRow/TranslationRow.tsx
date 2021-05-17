@@ -17,17 +17,27 @@ interface TranslationRowProps {
 }
 
 function checkIsMissing(values: string[]): boolean {
-  return values.some(value => value === undefined || value === '');
+  return values.some((value) => value === undefined || value === '');
 }
 
 function checkIsFiltered(searchString: string, name: string, values: string[]): boolean {
   if (searchString === '') return false;
 
   const lowerCaseSearchString = searchString.toLowerCase();
-  return (name.toLowerCase().indexOf(lowerCaseSearchString) !== -1 || values.some(item => item !== undefined && item.toLowerCase().indexOf(lowerCaseSearchString) !== -1));
+  return (
+    name.toLowerCase().indexOf(lowerCaseSearchString) !== -1 ||
+    values.some(
+      (item) => item !== undefined && item.toLowerCase().indexOf(lowerCaseSearchString) !== -1
+    )
+  );
 }
 
-export const TranslationRow: React.FC<TranslationRowProps> = ({ languages, name, showOnlyFiltered, showOnlyMissing }) => {
+export const TranslationRow: React.FC<TranslationRowProps> = ({
+  languages,
+  name,
+  showOnlyFiltered,
+  showOnlyMissing,
+}) => {
   const classes = useTranslationRowStyles();
   const { searchString } = useContext(SearchContext);
   const { getValues } = useFormContext();
@@ -36,18 +46,17 @@ export const TranslationRow: React.FC<TranslationRowProps> = ({ languages, name,
     if (!showOnlyFiltered && !showOnlyMissing) return undefined;
 
     const { [name]: groupValues } = getValues();
-    const values = typeof groupValues === 'object' && groupValues !== null ? Object.values(groupValues) : [];
+    const values =
+      typeof groupValues === 'object' && groupValues !== null ? Object.values(groupValues) : [];
 
     const isFiltered = showOnlyFiltered && checkIsFiltered(searchString, name, values);
     const isMissing = showOnlyMissing && checkIsMissing(values);
 
     if (showOnlyMissing && showOnlyFiltered && isMissing && isFiltered) {
       return undefined;
-    }
-    else if (showOnlyMissing && isMissing && !showOnlyFiltered) {
+    } else if (showOnlyMissing && isMissing && !showOnlyFiltered) {
       return undefined;
-    }
-    else if (showOnlyFiltered && isFiltered && !showOnlyMissing) {
+    } else if (showOnlyFiltered && isFiltered && !showOnlyMissing) {
       return undefined;
     }
 

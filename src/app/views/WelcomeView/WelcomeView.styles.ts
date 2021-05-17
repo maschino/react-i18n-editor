@@ -5,9 +5,9 @@ export const useWelcomeViewStyles = makeStyles({
     padding: '50px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   ghostContainer: {
     margin: '40px 0',
-  }
+  },
 });

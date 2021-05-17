@@ -15,7 +15,7 @@
     "build:render": "react-scripts build",
     "build": "npm run build:main && npm run build:render",
     "electron:pack": "npm run build && electron-builder --dir",
-    "electron:dist": "npm run build && electron-builder",
+    "electron:dist": "npm run build && electron-builder --linux --win --publish onTagOrDraft",
     "lint": "eslint \"src/**\""
   },
   "dependencies": {

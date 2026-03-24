@@ -1,5 +1,7 @@
 # Translation Editor
 
+[![Hypercommit](https://img.shields.io/badge/Hypercommit-DB2475)](https://hypercommit.com/react-i18n-editor)
+
 A graphical interface for dealing with json translation files.
 
 [![starting screen](./screens/screen1.PNG)]
